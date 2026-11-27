@@ -6,7 +6,7 @@ jobs:
     container: swift:5.10
     steps:
       - uses: actions/checkout@v4
-      - run: make test
-      - run: make channel-check
+      - run: swiftc Sources/Core.swift Tests/main.swift -o tests-bin && ./tests-bin
+      - run: swiftc -O Sources/Core.swift Sources/main.swift -o channel-check
       - run: ./channel-check channels examples/channels.csv
       - run: ./channel-check cost --fee 5000
