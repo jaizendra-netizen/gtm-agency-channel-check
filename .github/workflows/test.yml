@@ -1,0 +1,12 @@
+name: test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: swift:5.10
+    steps:
+      - uses: actions/checkout@v4
+      - run: make test
+      - run: make channel-check
+      - run: ./channel-check channels examples/channels.csv
+      - run: ./channel-check cost --fee 5000
