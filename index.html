@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gtm-agency-channel-check | OneGTMLab</title>
+<meta name="description" content="Swift CLI for hiring a GTM agency: cost per qualified meeting by channel with a keep or shrink verdict, six red-flag questions and the real monthly cost of a quote.">
+<style>body{font:16px/1.6 system-ui,sans-serif;max-width:46rem;margin:2rem auto;padding:0 1rem;color:#1b1f23}pre{background:#f6f8fa;padding:1rem;overflow:auto}code{background:#f6f8fa;padding:.1em .3em}table{border-collapse:collapse}td,th{border:1px solid #d0d7de;padding:.3rem .6rem}</style>
+</head><body>
+<main>
+<h1 dir="auto">gtm-agency-channel-check</h1>
+<p dir="auto">A small Swift command-line tool for the buyer-side checks in<br>
+<a href="https://www.onegtmlab.dev/blog/best-gtm-agency">Best GTM Agency in 2026</a>. It names no agency. It covers three things the<br>
+guide tells you to do before and after hiring a GTM agency: work out what a qualified meeting costs by channel, run the six<br>
+red-flag questions, and add up the real monthly cost of a quote. Swift 5.9 or later with Foundation, no packages.</p>
+<h2 dir="auto">1. What a qualified meeting costs, by channel</h2>
+<p dir="auto">The guide says an agency that cannot tell you what a qualified meeting costs by channel cannot move budget to the channel that<br>
+works: if $100 of spend produces a lead worth $50 to you, that channel should shrink.</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">make channel-check
+./channel-check channels examples/channels.csv</pre></div>
+<p dir="auto">The CSV is <code class="notranslate">channel,spend,qualified_meetings,value_per_meeting</code>. For each channel the tool prints spend, the value the<br>
+meetings returned, the cost per qualified meeting and the return per dollar, then a verdict: <code class="notranslate">keep</code>, <code class="notranslate">shrink</code> (the channel<br>
+returned less than it cost) or <code class="notranslate">no meetings</code>. Channels are ordered by cost per meeting, with channels that produced no<br>
+meeting last. The value per meeting is your own number.</p>
+<h2 dir="auto">2. Six red flags</h2>
+<p dir="auto">The guide lists six red flags when hiring a GTM agency: results without names, meeting counts with no definition, everything<br>
+happening inside the agency's accounts, one template for every client, no view on deliverability, and a senior person on the<br>
+sales call with nobody senior after it.</p>
+<pre class="notranslate"><code class="notranslate">flag,answer
+names,yes
+definition,no
+ownership,yes
+</code></pre>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">./channel-check flags examples/flags.csv     <span class="pl-c"><span class="pl-c">#</span> exit 1 if any flag is set</span></pre></div>
+<p dir="auto">Flag keys are <code class="notranslate">names</code>, <code class="notranslate">definition</code>, <code class="notranslate">ownership</code>, <code class="notranslate">template</code>, <code class="notranslate">deliverability</code> and <code class="notranslate">seniority</code>. Answer <code class="notranslate">yes</code> when you saw<br>
+it. Every flag you set prints the question that tests it.</p>
+<h2 dir="auto">3. The real monthly cost</h2>
+<p dir="auto">The number on the invoice is only part of the cost: the rest is tools and your own team's time.</p>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">./channel-check cost --fee 5000 --tools 800 --hours 10 --rate 60
+./channel-check questions</pre></div>
+<p dir="auto"><code class="notranslate">questions</code> prints the three questions to ask on every sales call: who does the work, who owns what gets built, and what the<br>
+tools cost on top.</p>
+<h2 dir="auto">Test</h2>
+<div class="highlight highlight-source-shell" dir="auto"><pre class="notranslate">make <span class="pl-c1">test</span></pre></div>
+<p dir="auto">All names and figures in <code class="notranslate">examples/</code> and in this README are made up. MIT licensed.</p>
+</main>
+<footer><p>Source: <a href="https://github.com/jaizendra-netizen/gtm-agency-channel-check">github.com/jaizendra-netizen/gtm-agency-channel-check</a>. Maintained by <a href="https://www.onegtmlab.dev">OneGTMLab</a>.</p></footer>
+</body></html>

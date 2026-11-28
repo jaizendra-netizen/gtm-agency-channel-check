@@ -1,0 +1,10 @@
+{
+  "name": "gtm-agency-channel-check",
+  "description": "Swift CLI for hiring a GTM agency: cost per qualified meeting by channel with a keep or shrink verdict, six red-flag questions and the real monthly cost of a quote.",
+  "sidebar": [
+    {
+      "title": "Overview",
+      "href": "/"
+    }
+  ]
+}
